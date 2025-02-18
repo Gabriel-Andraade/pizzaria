@@ -1,3 +1,4 @@
+
 import { register, login, getUser, deleteUser, updateUser } from "./userAController.js";
 
 const routes = new Map([
@@ -7,6 +8,5 @@ const routes = new Map([
   ["/delete", deleteUser],
   ["/update", updateUser],
 ]);
-
 
 export default routes;
