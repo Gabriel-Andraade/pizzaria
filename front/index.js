@@ -415,3 +415,113 @@ if (paymentForm) {
 function formatPrice(value) {
   return `$${value.toFixed(2)}`;
 }
+
+window.addCustomPizza = function () {
+  try {
+    const customPizzaCard = document.getElementById("customPizzaCard");
+    const sizeSelect = customPizzaCard.querySelector("#customSize");
+    const crust = customPizzaCard.querySelector("#customCrust").value;
+    const sauce = customPizzaCard.querySelector("#customSauce").value;
+    const checkedToppings = customPizzaCard.querySelectorAll(
+      'input[type="checkbox"]:checked'
+    );
+
+    let basePrice = 15.0;
+    const multiplier = parseFloat(
+      sizeSelect.selectedOptions[0].dataset.multiplier || 1
+    );
+    const toppingsPrice = checkedToppings.length * 2;
+
+    const totalPrice = (basePrice + toppingsPrice) * multiplier;
+    const sizeText = sizeSelect.options[sizeSelect.selectedIndex].text;
+
+    const toppingsList = Array.from(checkedToppings)
+      .map((t) => t.value)
+      .join(", ");
+
+    cart.push({
+      name: `Custom Pizza (${sizeText})`,
+      size: sizeText,
+      price: totalPrice,
+      details:
+        `${crust} crust, ${sauce} sauce` +
+        (toppingsList ? `, ${toppingsList}` : ""),
+    });
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCartUI();
+    closeAllCards();
+
+    const addButton = customPizzaCard.querySelector("button");
+    addButton.textContent = "Added!";
+    setTimeout(() => {
+      addButton.textContent = "Add to cart";
+    }, 2000);
+  } catch (error) {
+    console.error("Error adding custom pizza:", error);
+    alert("Error adding custom pizza. Please try again.");
+  }
+};
+
+window.addHalfPizza = function () {
+  try {
+    const halfPizzaCard = document.getElementById("halfPizzaCard");
+    const flavor1 = halfPizzaCard.querySelector("#halfFlavor1").value;
+    const flavor2 = halfPizzaCard.querySelector("#halfFlavor2").value;
+    const sizeSelect = halfPizzaCard.querySelector("#halfSize");
+
+    if (flavor1 === flavor2) {
+      alert("Please choose two different flavors for half & half pizza");
+      return;
+    }
+
+    const basePrice = 18.0;
+    const multiplier = parseFloat(
+      sizeSelect.selectedOptions[0].dataset.multiplier || 1
+    );
+    const totalPrice = basePrice * multiplier;
+    const sizeText = sizeSelect.options[sizeSelect.selectedIndex].text;
+
+    cart.push({
+      name: `Half & Half (${flavor1}/${flavor2})`,
+      size: sizeText,
+      price: totalPrice,
+      details: `${sizeText} pizza with two flavors`,
+    });
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCartUI();
+    closeAllCards();
+
+    const addButton = halfPizzaCard.querySelector("button");
+    addButton.textContent = "Added!";
+    setTimeout(() => {
+      addButton.textContent = "Add to cart";
+    }, 2000);
+  } catch (error) {
+    console.error("Error adding half pizza:", error);
+    alert("Error adding half pizza. Please try again.");
+  }
+};
+
+document.addEventListener("DOMContentLoaded", function () {
+  const customSizeSelect = document.getElementById("customSize");
+  if (customSizeSelect) {
+    const optP = customSizeSelect.querySelector('option[value="P"]');
+    const optM = customSizeSelect.querySelector('option[value="M"]');
+    const optG = customSizeSelect.querySelector('option[value="G"]');
+    if (optP) optP.dataset.multiplier = "0.8";
+    if (optM) optM.dataset.multiplier = "1";
+    if (optG) optG.dataset.multiplier = "1.3";
+  }
+
+  const halfSizeSelect = document.getElementById("halfSize");
+  if (halfSizeSelect) {
+    const optP = halfSizeSelect.querySelector('option[value="P"]');
+    const optM = halfSizeSelect.querySelector('option[value="M"]');
+    const optG = halfSizeSelect.querySelector('option[value="G"]');
+    if (optP) optP.dataset.multiplier = "0.8";
+    if (optM) optM.dataset.multiplier = "1";
+    if (optG) optG.dataset.multiplier = "1.3";
+  }
+});
