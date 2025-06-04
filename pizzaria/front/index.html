@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KMamacita's Pizza</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="front/index.css" />
+  </head>
+  <body>
+    <header>
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/3132/3132693.png"
+        alt="Logo Pizzaria"
+      />
+      <div class="store-info">
+        <strong>Mamacita's Pizza</strong>
+        <span
+          ><span
+            class="material-icons"
+            style="font-size: 16px; vertical-align: middle"
+            >call</span
+          >
+          (11) 99424-5270</span
+        >
+        <span
+          ><span
+            class="material-icons"
+            style="font-size: 16px; vertical-align: middle"
+            >place</span
+          >
+          Rua Norberto, 20 - Vila Jovina, Cotia - SP</span
+        >
+      </div>
+    </header>
+
+    <div class="info-blocks">
+      <div class="info-box"><strong>$25.00</strong><br />Minimum order</div>
+      <div class="info-box"><strong>40–45 min</strong><br />Delivery time</div>
+
+      <div
+        class="info-box"
+        style="flex-direction: column; align-items: flex-start"
+      >
+        <div style="margin-bottom: 0.5rem">
+          <button id="btn-delivery" class="btn active">Delivery</button>
+        </div>
+
+        <div id="delivery-form" style="margin-bottom: 0.5rem">
+          <label for="cep">
+            ZIP Code:
+            <input
+              type="text"
+              id="cep"
+              name="cep"
+              maxlength="9"
+              placeholder="00000-000"
+            />
+            <span
+              id="freteResult"
+              style="margin-left: 16px; color: #00a859; font-weight: bold"
+            ></span>
+          </label>
+          <br />
+          <label for="rua"
+            >Street: <input type="text" id="rua" name="rua" disabled /> </label
+          ><br />
+          <label for="bairro"
+            >Neighborhood:
+            <input type="text" id="bairro" name="bairro" disabled /> </label
+          ><br />
+          <label for="cidade"
+            >City:
+            <input type="text" id="cidade" name="cidade" disabled /> </label
+          ><br />
+          <label for="estado"
+            >State:
+            <input type="text" id="estado" name="estado" disabled />
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="promo-options">
+      <div class="promo-card">
+        <div class="promo-icon">🍕</div>
+        <div>
+          <strong>Build your own pizza</strong>
+          <p>Customize your pizza with size, crust, sauce, and toppings.</p>
+        </div>
+        <button class="promo-btn">→</button>
+      </div>
+
+      <div class="promo-card">
+        <div class="promo-icon">🍕</div>
+        <div>
+          <strong>Half & Half</strong>
+          <p>Choose 2 flavors and create a personalized pizza.</p>
+        </div>
+        <button class="promo-btn">→</button>
+      </div>
+    </div>
+
+    <div class="main">
+      <div class="menu-tabs">
+        <button class="tab active" data-target="pizza">Special Pizza</button>
+        <button class="tab" data-target="bebidas">Drinks</button>
+        <button class="tab" data-target="massas">Pastas</button>
+        <button class="tab" data-target="sobremesas">Desserts</button>
+      </div>
+
+      <div class="menu-content">
+        <div class="menu-section category" id="pizza">
+          <div class="menu-title">SPECIAL PIZZA</div>
+
+          <div class="pizza-card">
+            <div class="pizza-name">Simple Cheese - $18.99</div>
+            <div class="pizza-details">Red sauce, mozzarella cheese</div>
+            <div class="pizza-actions">
+              <select class="pizza-size" onchange="updatePrice(this)">
+                <option value="P" data-multiplier="0.8">Small</option>
+                <option value="M" data-multiplier="1" selected>Medium</option>
+                <option value="G" data-multiplier="1.3">Large</option>
+              </select>
+              <button class="btn add-to-cart" onclick="addToCart(this)">
+                Add to cart
+              </button>
+            </div>
+          </div>
+
+          <div class="pizza-card">
+            <div class="pizza-name">Chicken & Cream Cheese - $27.99</div>
+            <div class="pizza-details">
+              Red sauce, chicken, cream cheese, oregano
+            </div>
+            <div class="pizza-actions">
+              <select class="pizza-size" onchange="updatePrice(this)">
+                <option value="P" data-multiplier="0.8">Small</option>
+                <option value="M" data-multiplier="1" selected>Medium</option>
+                <option value="G" data-multiplier="1.3">Large</option>
+              </select>
+              <button class="btn add-to-cart" onclick="addToCart(this)">
+                Add to cart
+              </button>
+            </div>
+          </div>
+
+          <div class="pizza-card">
+            <div class="pizza-name">Portuguese - $27.99</div>
+            <div class="pizza-details">Red sauce, eggs, olives, ham</div>
+            <div class="pizza-actions">
+              <select class="pizza-size" onchange="updatePrice(this)">
+                <option value="P" data-multiplier="0.8">Small</option>
+                <option value="M" data-multiplier="1" selected>Medium</option>
+                <option value="G" data-multiplier="1.3">Large</option>
+              </select>
+              <button class="btn add-to-cart" onclick="addToCart(this)">
+                Add to cart
+              </button>
+            </div>
+          </div>
+
+          <div class="pizza-card">
+            <div class="pizza-name">Calabrese - $24.99</div>
+            <div class="pizza-details">
+              Red sauce, sliced calabrese sausage, onion, mozzarella
+            </div>
+            <div class="pizza-actions">
+              <select class="pizza-size" onchange="updatePrice(this)">
+                <option value="P" data-multiplier="0.8">Small</option>
+                <option value="M" data-multiplier="1" selected>Medium</option>
+                <option value="G" data-multiplier="1.3">Large</option>
+              </select>
+              <button class="btn add-to-cart" onclick="addToCart(this)">
+                Add to cart
+              </button>
+            </div>
+          </div>
+
+          <div class="pizza-card">
+            <div class="pizza-name">Margherita - $22.99</div>
+            <div class="pizza-details">
+              Red sauce, mozzarella, fresh tomato, basil
+            </div>
+            <div class="pizza-actions">
+              <select class="pizza-size" onchange="updatePrice(this)">
+                <option value="P" data-multiplier="0.8">Small</option>
+                <option value="M" data-multiplier="1" selected>Medium</option>
+                <option value="G" data-multiplier="1.3">Large</option>
+              </select>
+              <button class="btn add-to-cart" onclick="addToCart(this)">
+                Add to cart
+              </button>
+            </div>
+          </div>
+
+          <div class="pizza-card">
+            <div class="pizza-name">Four Cheese - $29.99</div>
+            <div class="pizza-details">
+              Red sauce, mozzarella, provolone, parmesan, gorgonzola
+            </div>
+            <div class="pizza-actions">
+              <select class="pizza-size" onchange="updatePrice(this)">
+                <option value="P" data-multiplier="0.8">Small</option>
+                <option value="M" data-multiplier="1" selected>Medium</option>
+                <option value="G" data-multiplier="1.3">Large</option>
+              </select>
+              <button class="btn add-to-cart" onclick="addToCart(this)">
+                Add to cart
+              </button>
+            </div>
+          </div>
+
+          <div class="pizza-card">
+            <div class="pizza-name">Pepperoni - $26.99</div>
+            <div class="pizza-details">
+              Red sauce, pepperoni, mozzarella, oregano
+            </div>
+            <div class="pizza-actions">
+              <select class="pizza-size" onchange="updatePrice(this)">
+                <option value="P" data-multiplier="0.8">Small</option>
+                <option value="M" data-multiplier="1" selected>Medium</option>
+                <option value="G" data-multiplier="1.3">Large</option>
+              </select>
+              <button class="btn add-to-cart" onclick="addToCart(this)">
+                Add to cart
+              </button>
+            </div>
+          </div>
+
+          <div class="pizza-card">
+            <div class="pizza-name">Vegetarian - $25.99</div>
+            <div class="pizza-details">
+              Red sauce, eggplant, zucchini, bell pepper, onion, mozzarella
+            </div>
+            <div class="pizza-actions">
+              <select class="pizza-size" onchange="updatePrice(this)">
+                <option value="P" data-multiplier="0.8">Small</option>
+                <option value="M" data-multiplier="1" selected>Medium</option>
+                <option value="G" data-multiplier="1.3">Large</option>
+              </select>
+              <button class="btn add-to-cart" onclick="addToCart(this)">
+                Add to cart
+              </button>
+            </div>
+          </div>
+
+          <div class="pizza-card">
+            <div class="pizza-name">Bacon - $28.99</div>
+            <div class="pizza-details">
+              Red sauce, crispy bacon, mozzarella, caramelized onion
+            </div>
+            <div class="pizza-actions">
+              <select class="pizza-size" onchange="updatePrice(this)">
+                <option value="P" data-multiplier="0.8">Small</option>
+                <option value="M" data-multiplier="1" selected>Medium</option>
+                <option value="G" data-multiplier="1.3">Large</option>
+              </select>
+              <button class="btn add-to-cart" onclick="addToCart(this)">
+                Add to cart
+              </button>
+            </div>
+          </div>
+
+          <div class="pizza-card">
+            <div class="pizza-name">Tuna - $27.99</div>
+            <div class="pizza-details">
+              Red sauce, tuna, onion, mozzarella, olives
+            </div>
+            <div class="pizza-actions">
+              <select class="pizza-size" onchange="updatePrice(this)">
+                <option value="P" data-multiplier="0.8">Small</option>
+                <option value="M" data-multiplier="1" selected>Medium</option>
+                <option value="G" data-multiplier="1.3">Large</option>
+              </select>
+              <button class="btn add-to-cart" onclick="addToCart(this)">
+                Add to cart
+              </button>
+            </div>
+          </div>
+
+          <div class="pizza-card">
+            <div class="pizza-name">Country Style - $29.99</div>
+            <div class="pizza-details">
+              Red sauce, shredded chicken, corn, cream cheese, bacon
+            </div>
+            <div class="pizza-actions">
+              <select class="pizza-size" onchange="updatePrice(this)">
+                <option value="P" data-multiplier="0.8">Small</option>
+                <option value="M" data-multiplier="1" selected>Medium</option>
+                <option value="G" data-multiplier="1.3">Large</option>
+              </select>
+              <button class="btn add-to-cart" onclick="addToCart(this)">
+                Add to cart
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-section category" id="bebidas" style="display: none">
+          <div class="menu-title">DRINKS</div>
+          <div class="pizza-card">
+            <div class="pizza-name">Coca-Cola 350ml - $5.00</div>
+            <div class="pizza-details">Cold soda</div>
+            <button class="btn add-to-cart" onclick="addToCart(this)">
+              Add to cart
+            </button>
+          </div>
+          <div class="pizza-card">
+            <div class="pizza-name">Guaraná Antarctica 350ml - $5.00</div>
+            <div class="pizza-details">Brazilian classic</div>
+            <button class="btn add-to-cart" onclick="addToCart(this)">
+              Add to cart
+            </button>
+          </div>
+        </div>
+
+        <div class="menu-section category" id="massas" style="display: none">
+          <div class="menu-title">PASTAS</div>
+          <div class="pizza-card">
+            <div class="pizza-name">Bolognese Lasagna - $22.00</div>
+            <div class="pizza-details">Ground beef, red sauce, cheese</div>
+            <button class="btn add-to-cart" onclick="addToCart(this)">
+              Add to cart
+            </button>
+          </div>
+        </div>
+
+        <div
+          class="menu-section category"
+          id="sobremesas"
+          style="display: none"
+        >
+          <div class="menu-title">DESSERTS</div>
+          <div class="pizza-card">
+            <div class="pizza-name">Brownie with Ice Cream - $12.00</div>
+            <div class="pizza-details">Warm brownie, vanilla ice cream</div>
+            <button class="btn add-to-cart" onclick="addToCart(this)">
+              Add to cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="front/pix.js"></script>
+    <script src="front/index.js"></script>
+
+    <div id="cart">
+      <h2>Your Cart</h2>
+      <ul id="cart-items"></ul>
+      <div class="cart-total">Total: <span id="cart-total">$0.00</span></div>
+      <button class="btn" id="openPaymentBtn">Checkout</button>
+    </div>
+
+    <div
+      id="modalOverlay"
+      class="modal-overlay hidden"
+      onclick="closeAllCards()"
+    ></div>
+
+    <div id="customPizzaCard" class="pizza-card pizza-modal hidden">
+      <button class="close-btn" onclick="closeAllCards()">✕</button>
+      <h2>Build Your Pizza</h2>
+      <label
+        >Size:
+        <select id="customSize">
+          <option value="P">Small</option>
+          <option value="M" selected>Medium</option>
+          <option value="G">Large</option>
+        </select>
+      </label>
+      <label
+        >Crust:
+        <select id="customCrust">
+          <option>Traditional</option>
+          <option>Thin</option>
+          <option>Pan</option>
+        </select>
+      </label>
+      <label
+        >Sauce:
+        <select id="customSauce">
+          <option>Red</option>
+          <option>White</option>
+          <option>Barbecue</option>
+        </select>
+      </label>
+      <fieldset>
+        <legend>Toppings:</legend>
+        <label><input type="checkbox" value="Mozzarella" /> Mozzarella</label>
+        <label><input type="checkbox" value="Chicken" /> Chicken</label>
+        <label><input type="checkbox" value="Calabrese" /> Calabrese</label>
+        <label><input type="checkbox" value="Tomato" /> Tomato</label>
+        <label><input type="checkbox" value="Basil" /> Basil</label>
+        <label><input type="checkbox" value="Bacon" /> Bacon</label>
+      </fieldset>
+      <button onclick="window.addCustomPizza()">Add to cart</button>
+    </div>
+
+    <div id="halfPizzaCard" class="pizza-card pizza-modal hidden">
+      <button class="close-btn" onclick="closeAllCards()">✕</button>
+      <h2>Half & Half Pizza</h2>
+      <label
+        >Flavor 1:
+        <select id="halfFlavor1">
+          <option>Calabrese</option>
+          <option>Chicken & Cream Cheese</option>
+          <option>Portuguese</option>
+          <option>Vegetarian</option>
+        </select>
+      </label>
+      <label
+        >Flavor 2:
+        <select id="halfFlavor2">
+          <option>Margherita</option>
+          <option>Four Cheese</option>
+          <option>Pepperoni</option>
+          <option>Bacon</option>
+        </select>
+      </label>
+      <label
+        >Size:
+        <select id="halfSize">
+          <option value="P">Small</option>
+          <option value="M" selected>Medium</option>
+          <option value="G">Large</option>
+        </select>
+      </label>
+      <button onclick="window.addHalfPizza()">Add to cart</button>
+    </div>
+
+    <div id="payment-card" class="cart hidden">
+      <button id="closePaymentCard" class="close-payment-btn">✕</button>
+      <h2>Checkout</h2>
+      <ul id="lista-pizzas"></ul>
+      <p>Subtotal: <span id="subtotal"></span></p>
+      <p>Delivery: <span id="frete"></span></p>
+      <p>
+        <strong>Total: <span id="total-final"></span></strong>
+      </p>
+      <p
+        id="endereco-pedido"
+        style="font-size: 0.9rem; margin-bottom: 0.5rem"
+      ></p>
+      <label for="metodo">Payment:</label>
+      <select
+        id="metodo"
+        name="metodo"
+        style="width: 100%; margin: 0.5rem 0; padding: 0.3rem"
+      >
+        <option value="pix">Pix</option>
+        <option value="cartao">Card</option>
+        <option value="dinheiro">Cash</option>
+      </select>
+      <button class="btn finalizar" id="pagar-btn">Place Order</button>
+    </div>
+  </body>
+</html>
